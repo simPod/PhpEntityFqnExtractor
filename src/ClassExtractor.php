@@ -1,0 +1,87 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Cdn77\EntityFqnExtractor;
+
+use Cdn77\EntityFqnExtractor\Exception\ClassDefinitionInFileIsInvalid;
+use SplFileInfo;
+
+use function count;
+use function ltrim;
+use function Safe\file_get_contents;
+use function token_get_all;
+
+use const T_CLASS;
+use const T_NAMESPACE;
+use const T_STRING;
+use const T_WHITESPACE;
+
+final class ClassExtractor
+{
+    /** @return list<class-string> */
+    public static function all(SplFileInfo $file) : array
+    {
+        $contents = file_get_contents($file->getPathname());
+        /** @var list<class-string> $classes */
+        $classes = [];
+        $namespace = '';
+        $tokens = token_get_all($contents);
+        $count = count($tokens);
+
+        foreach ($tokens as $i => $token) {
+            if ($i < 2) {
+                continue;
+            }
+
+            if ($token[0] === T_NAMESPACE) {
+                for ($j = $i + 1; $j < $count; ++$j) {
+                    if ($tokens[$j][0] === T_STRING) {
+                        $namespace .= '\\' . $tokens[$j][1];
+
+                        continue;
+                    }
+
+                    if ($tokens[$j] === '{' || $tokens[$j] === ';') {
+                        $namespace = ltrim($namespace, '\\');
+
+                        break;
+                    }
+                }
+
+                continue;
+            }
+
+            if (
+                $tokens[$i - 2][0] !== T_CLASS
+                || $tokens[$i - 1][0] !== T_WHITESPACE
+                || $token[0] !== T_STRING
+            ) {
+                continue;
+            }
+
+            $className = $tokens[$i][1];
+            /** @psalm-var class-string $fqn */
+            $fqn = $namespace . '\\' . $className;
+            $classes[] = $fqn;
+        }
+
+        if ($classes === []) {
+            throw ClassDefinitionInFileIsInvalid::noClass($file);
+        }
+
+        return $classes;
+    }
+
+    /** @return class-string */
+    public static function get(SplFileInfo $file) : string
+    {
+        $classes = self::all($file);
+
+        if (count($classes) > 1) {
+            throw ClassDefinitionInFileIsInvalid::multipleClasses($file);
+        }
+
+        return $classes[0];
+    }
+}
