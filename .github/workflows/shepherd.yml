@@ -20,5 +20,5 @@ jobs:
 
       - name: Run Psalm
         env:
-          PHPSTAN_ARGS: --show-info=false --stats --output-format=github --shepherd --threads=$(nproc)
+          PSALM_ARGS: --show-info=false --stats --output-format=github --shepherd --threads=$(nproc)
         run: make -is psalm
