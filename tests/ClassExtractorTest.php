@@ -8,7 +8,6 @@ use Cdn77\EntityFqnExtractor\ClassExtractor;
 use Cdn77\EntityFqnExtractor\Exception\ClassDefinitionInFileIsInvalid;
 use Cdn77\EntityFqnExtractor\Fixtures\SomeDirectory\ClassFixture;
 use Generator;
-use SplFileInfo;
 
 final class ClassExtractorTest extends TestCaseBase
 {
@@ -17,7 +16,7 @@ final class ClassExtractorTest extends TestCaseBase
         self::assertSame(
             ClassFixture::class,
             ClassExtractor::get(
-                new SplFileInfo(__DIR__ . '/Fixtures/SomeDirectory/ClassFixture.php')
+                __DIR__ . '/Fixtures/SomeDirectory/ClassFixture.php'
             )
         );
     }
@@ -31,7 +30,7 @@ final class ClassExtractorTest extends TestCaseBase
     {
         self::assertSame(
             $expectedClasses,
-            ClassExtractor::all(new SplFileInfo(__DIR__ . $fixture))
+            ClassExtractor::all(__DIR__ . $fixture)
         );
     }
 
@@ -59,7 +58,7 @@ final class ClassExtractorTest extends TestCaseBase
     public function testGetThrows(string $path) : void
     {
         $this->expectException(ClassDefinitionInFileIsInvalid::class);
-        ClassExtractor::get(new SplFileInfo(__DIR__ . $path));
+        ClassExtractor::get(__DIR__ . $path);
     }
 
     /** @return Generator<string, list<string>> */

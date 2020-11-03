@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cdn77\EntityFqnExtractor;
 
 use Cdn77\EntityFqnExtractor\Exception\ClassDefinitionInFileIsInvalid;
-use SplFileInfo;
 
 use function count;
 use function ltrim;
@@ -20,9 +19,9 @@ use const T_WHITESPACE;
 final class ClassExtractor
 {
     /** @return list<class-string> */
-    public static function all(SplFileInfo $file) : array
+    public static function all(string $filePathName) : array
     {
-        $contents = file_get_contents($file->getPathname());
+        $contents = file_get_contents($filePathName);
         /** @var list<class-string> $classes */
         $classes = [];
         $namespace = '';
@@ -67,19 +66,19 @@ final class ClassExtractor
         }
 
         if ($classes === []) {
-            throw ClassDefinitionInFileIsInvalid::noClass($file);
+            throw ClassDefinitionInFileIsInvalid::noClass($filePathName);
         }
 
         return $classes;
     }
 
     /** @return class-string */
-    public static function get(SplFileInfo $file) : string
+    public static function get(string $filePathName) : string
     {
-        $classes = self::all($file);
+        $classes = self::all($filePathName);
 
         if (count($classes) > 1) {
-            throw ClassDefinitionInFileIsInvalid::multipleClasses($file);
+            throw ClassDefinitionInFileIsInvalid::multipleClasses($filePathName);
         }
 
         return $classes[0];
