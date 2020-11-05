@@ -10,7 +10,7 @@
         "sort-packages": true
     },
     "require": {
-        "php-64bit": "^7.3 || ^8.0",
+        "php-64bit": "^7.4 || ^8.0",
         "thecodingmachine/safe": "^1"
     },
     "require-dev": {
@@ -19,7 +19,7 @@
         "phpstan/phpstan": "0.12.40",
         "phpstan/phpstan-phpunit": "0.12.16",
         "phpstan/phpstan-strict-rules": "0.12.4",
-        "phpunit/phpunit": "~9.2.0",
+        "phpunit/phpunit": "^9.4",
         "psalm/plugin-phpunit": "^0.13.0",
         "simpod/php-coveralls-mirror": "^3.0",
         "vimeo/psalm": "^4.1"

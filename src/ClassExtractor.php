@@ -35,6 +35,12 @@ final class ClassExtractor
 
             if ($token[0] === T_NAMESPACE) {
                 for ($j = $i + 1; $j < $count; ++$j) {
+                    if ($tokens[$j][0] === 314) { // T_NAME_QUALIFIED PHP 8
+                        $namespace = $tokens[$j][1];
+
+                        break;
+                    }
+
                     if ($tokens[$j][0] === T_STRING) {
                         $namespace .= '\\' . $tokens[$j][1];
 
