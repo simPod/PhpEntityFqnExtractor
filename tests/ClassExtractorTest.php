@@ -34,7 +34,7 @@ final class ClassExtractorTest extends TestCaseBase
         );
     }
 
-    /** @return Generator<string, list<list<string>, string>> */
+    /** @return Generator<string, array{list<string>, string}> */
     public function dataProviderAll() : Generator
     {
         yield 'two classes' => [
