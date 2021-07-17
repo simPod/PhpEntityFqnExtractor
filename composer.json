@@ -14,7 +14,7 @@
         "thecodingmachine/safe": "^1"
     },
     "require-dev": {
-        "cdn77/coding-standard": "^4.0",
+        "cdn77/coding-standard": "^5.0",
         "infection/infection": "^0.23.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "0.12.92",
