@@ -17,13 +17,13 @@
         "cdn77/coding-standard": "^5.0",
         "infection/infection": "^0.25.1",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "0.12.99",
-        "phpstan/phpstan-phpunit": "0.12.22",
-        "phpstan/phpstan-strict-rules": "0.12.11",
+        "phpstan/phpstan": "^1.1",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
         "phpunit/phpunit": "^9.4",
         "psalm/plugin-phpunit": "^0.16.1",
         "roave/infection-static-analysis-plugin": "^1.8",
-        "vimeo/psalm": "^4.1"
+        "vimeo/psalm": "^4.12"
     },
     "autoload": {
         "psr-4": {
