@@ -12,6 +12,7 @@ use function Safe\file_get_contents;
 use function token_get_all;
 
 use const T_CLASS;
+use const T_NAME_QUALIFIED;
 use const T_NAMESPACE;
 use const T_STRING;
 use const T_WHITESPACE;
@@ -35,7 +36,7 @@ final class ClassExtractor
 
             if ($token[0] === T_NAMESPACE) {
                 for ($j = $i + 1; $j < $count; ++$j) {
-                    if ($tokens[$j][0] === 314) { // T_NAME_QUALIFIED PHP 8
+                    if ($tokens[$j][0] === T_NAME_QUALIFIED) {
                         $namespace = $tokens[$j][1];
 
                         break;
