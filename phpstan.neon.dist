@@ -1,5 +1,9 @@
 parameters:
     level: max
+
+    excludePaths:
+        - %currentWorkingDirectory%/tests/Fixtures/SomeDirectory/BrokenClassFixture.php
+
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/tests
