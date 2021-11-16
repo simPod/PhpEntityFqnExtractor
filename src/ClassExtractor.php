@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cdn77\EntityFqnExtractor;
 
 use Cdn77\EntityFqnExtractor\Exception\ClassDefinitionInFileIsInvalid;
+use PhpParser\Error;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\ParserFactory;
@@ -22,7 +23,11 @@ final class ClassExtractor
 
         $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
 
-        $ast = $parser->parse($code) ?? [];
+        try {
+            $ast = $parser->parse($code) ?? [];
+        } catch (Error $error) {
+            throw ClassDefinitionInFileIsInvalid::cannotParse($filePathName, $error);
+        }
 
         /** @var list<class-string> $classes */
         $classes = [];
