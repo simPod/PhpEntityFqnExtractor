@@ -67,7 +67,7 @@ final class ClassExtractorTest extends TestCaseBase
     /** @return Generator<string, array{string, string}> */
     public function dataProviderGetThrows() : Generator
     {
-        if (PHP_VERSION_ID < 80100) {
+        if (PHP_VERSION_ID >= 80100) {
             yield 'enum' => ['There is no class in a file', '/Fixtures/SomeDirectory/EnumFixture.php'];
         }
 
