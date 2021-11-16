@@ -57,21 +57,25 @@ final class ClassExtractorTest extends TestCaseBase
     }
 
     /** @dataProvider dataProviderGetThrows */
-    public function testGetThrows(string $path) : void
+    public function testGetThrows(string $expectedMessage, string $path) : void
     {
         $this->expectException(ClassDefinitionInFileIsInvalid::class);
+        $this->expectExceptionMessage($expectedMessage);
         ClassExtractor::get(__DIR__ . $path);
     }
 
-    /** @return Generator<string, list<string>> */
+    /** @return Generator<string, array{string, string}> */
     public function dataProviderGetThrows() : Generator
     {
         if (PHP_VERSION_ID < 80100) {
-            yield 'enum' => ['/Fixtures/SomeDirectory/EnumFixture.php'];
+            yield 'enum' => ['There is no class in a file', '/Fixtures/SomeDirectory/EnumFixture.php'];
         }
 
-        yield 'interface' => ['/Fixtures/SomeDirectory/InterfaceFixture.php'];
-        yield 'trait' => ['/Fixtures/SomeDirectory/TraitFixture.php'];
-        yield 'multiple classes' => ['/Fixtures/SomeDirectory/ClassesFixture.php'];
+        yield 'interface' => ['There is no class in a file', '/Fixtures/SomeDirectory/InterfaceFixture.php'];
+        yield 'trait' => ['There is no class in a file', '/Fixtures/SomeDirectory/TraitFixture.php'];
+        yield 'multiple classes' => [
+            'There are multiple classes in a file',
+            '/Fixtures/SomeDirectory/ClassesFixture.php',
+        ];
     }
 }
