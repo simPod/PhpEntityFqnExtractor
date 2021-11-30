@@ -69,10 +69,6 @@ final class ClassExtractorTest extends TestCaseBase
     {
         if (PHP_VERSION_ID >= 80100) {
             yield 'enum' => ['There is no class in a file', '/Fixtures/SomeDirectory/EnumFixture.php'];
-            yield 'broken class with invalid tokens' => [
-                'Cannot parse file ',
-                '/Fixtures/SomeDirectory/BrokenClassFixture.php',
-            ];
         }
 
         yield 'interface' => ['There is no class in a file', '/Fixtures/SomeDirectory/InterfaceFixture.php'];

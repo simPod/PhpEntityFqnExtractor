@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Cdn77\EntityFqnExtractor;
 
 use Cdn77\EntityFqnExtractor\Exception\ClassDefinitionInFileIsInvalid;
-use PhpParser\Error;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\ParserFactory;
 
 use function count;
-use function implode;
+use function ltrim;
 use function Safe\file_get_contents;
+use function token_get_all;
+
+use const T_CLASS;
+use const T_NAME_QUALIFIED;
+use const T_NAMESPACE;
+use const T_STRING;
+use const T_WHITESPACE;
 
 final class ClassExtractor
 {
@@ -21,38 +24,53 @@ final class ClassExtractor
     {
         $code = file_get_contents($filePathName);
 
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7);
-
-        try {
-            $ast = $parser->parse($code) ?? [];
-        } catch (Error $error) {
-            throw ClassDefinitionInFileIsInvalid::cannotParse($filePathName, $error);
-        }
-
         /** @var list<class-string> $classes */
         $classes = [];
+        $namespace = '';
+        $tokens = token_get_all($code);
+        $count = count($tokens);
 
-        foreach ($ast as $node) {
-            if (! $node instanceof Namespace_) {
+        foreach ($tokens as $i => $token) {
+            if ($i < 2) {
                 continue;
             }
 
-            $namespace = $node->name === null ? '' : implode('\\', $node->name->parts) . '\\';
+            if ($token[0] === T_NAMESPACE) {
+                for ($j = $i + 1; $j < $count; ++$j) {
+                    if ($tokens[$j][0] === T_NAME_QUALIFIED) {
+                        $namespace = $tokens[$j][1];
 
-            foreach ($node->stmts as $stmt) {
-                if (! $stmt instanceof Class_) {
-                    continue;
+                        break;
+                    }
+
+                    if ($tokens[$j][0] === T_STRING) {
+                        $namespace .= '\\' . $tokens[$j][1];
+
+                        continue;
+                    }
+
+                    if ($tokens[$j] === '{' || $tokens[$j] === ';') {
+                        $namespace = ltrim($namespace, '\\');
+
+                        break;
+                    }
                 }
 
-                if ($stmt->name === null) {
-                    continue;
-                }
-
-                /** @psalm-var class-string $class */
-                $class = $namespace . $stmt->name->name;
-
-                $classes[] = $class;
+                continue;
             }
+
+            if (
+                $tokens[$i - 2][0] !== T_CLASS
+                || $tokens[$i - 1][0] !== T_WHITESPACE
+                || $token[0] !== T_STRING
+            ) {
+                continue;
+            }
+
+            $className = $tokens[$i][1];
+            /** @psalm-var class-string $fqn */
+            $fqn = $namespace . '\\' . $className;
+            $classes[] = $fqn;
         }
 
         if ($classes === []) {
