@@ -20,7 +20,7 @@ use const T_WHITESPACE;
 final class ClassExtractor
 {
     /** @return list<class-string> */
-    public static function all(string $filePathName) : array
+    public static function all(string $filePathName): array
     {
         $code = file_get_contents($filePathName);
 
@@ -81,7 +81,7 @@ final class ClassExtractor
     }
 
     /** @return class-string */
-    public static function get(string $filePathName) : string
+    public static function get(string $filePathName): string
     {
         $classes = self::all($filePathName);
 
