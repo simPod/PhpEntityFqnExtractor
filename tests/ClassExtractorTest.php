@@ -13,7 +13,7 @@ use const PHP_VERSION_ID;
 
 final class ClassExtractorTest extends TestCaseBase
 {
-    public function testGet() : void
+    public function testGet(): void
     {
         self::assertSame(
             ClassFixture::class,
@@ -28,7 +28,7 @@ final class ClassExtractorTest extends TestCaseBase
      *
      * @dataProvider dataProviderAll
      */
-    public function testAll(array $expectedClasses, string $fixture) : void
+    public function testAll(array $expectedClasses, string $fixture): void
     {
         self::assertSame(
             $expectedClasses,
@@ -37,7 +37,7 @@ final class ClassExtractorTest extends TestCaseBase
     }
 
     /** @return Generator<string, array{list<string>, string}> */
-    public function dataProviderAll() : Generator
+    public function dataProviderAll(): Generator
     {
         yield 'two classes' => [
             [
@@ -57,7 +57,7 @@ final class ClassExtractorTest extends TestCaseBase
     }
 
     /** @dataProvider dataProviderGetThrows */
-    public function testGetThrows(string $expectedMessage, string $path) : void
+    public function testGetThrows(string $expectedMessage, string $path): void
     {
         $this->expectException(ClassDefinitionInFileIsInvalid::class);
         $this->expectExceptionMessage($expectedMessage);
@@ -65,7 +65,7 @@ final class ClassExtractorTest extends TestCaseBase
     }
 
     /** @return Generator<string, array{string, string}> */
-    public function dataProviderGetThrows() : Generator
+    public function dataProviderGetThrows(): Generator
     {
         if (PHP_VERSION_ID >= 80100) {
             yield 'enum' => ['There is no class in a file', '/Fixtures/SomeDirectory/EnumFixture.php'];
