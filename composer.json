@@ -17,7 +17,7 @@
     },
     "require": {
         "php": "^8.0",
-        "thecodingmachine/safe": "^1"
+        "thecodingmachine/safe": "^1 || ^2"
     },
     "require-dev": {
         "cdn77/coding-standard": "^6.0",
