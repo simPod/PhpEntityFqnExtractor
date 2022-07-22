@@ -9,8 +9,6 @@ use Cdn77\EntityFqnExtractor\Exception\ClassDefinitionInFileIsInvalid;
 use Cdn77\EntityFqnExtractor\Fixtures\SomeDirectory\ClassFixture;
 use Generator;
 
-use const PHP_VERSION_ID;
-
 final class ClassExtractorTest extends TestCaseBase
 {
     public function testGet(): void
@@ -67,10 +65,7 @@ final class ClassExtractorTest extends TestCaseBase
     /** @return Generator<string, array{string, string}> */
     public function dataProviderGetThrows(): Generator
     {
-        if (PHP_VERSION_ID >= 80100) {
-            yield 'enum' => ['There is no class in a file', '/Fixtures/SomeDirectory/EnumFixture.php'];
-        }
-
+        yield 'enum' => ['There is no class in a file', '/Fixtures/SomeDirectory/EnumFixture.php'];
         yield 'interface' => ['There is no class in a file', '/Fixtures/SomeDirectory/InterfaceFixture.php'];
         yield 'trait' => ['There is no class in a file', '/Fixtures/SomeDirectory/TraitFixture.php'];
         yield 'multiple classes' => [
