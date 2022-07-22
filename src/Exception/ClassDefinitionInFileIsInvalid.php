@@ -7,7 +7,7 @@ namespace Cdn77\EntityFqnExtractor\Exception;
 use InvalidArgumentException;
 use PhpParser\Error;
 
-use function Safe\sprintf;
+use function sprintf;
 
 final class ClassDefinitionInFileIsInvalid extends InvalidArgumentException
 {
