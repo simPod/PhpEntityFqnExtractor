@@ -15,21 +15,21 @@ final class EnumDefinitionInFileIsInvalid extends InvalidArgumentException
     {
         return new self(
             sprintf('Cannot parse file %s', $filePathName),
-            previous: $error
+            previous: $error,
         );
     }
 
     public static function noEnum(string $filePathName): self
     {
         return new self(
-            sprintf('There is no enum in a file %s', $filePathName)
+            sprintf('There is no enum in a file %s', $filePathName),
         );
     }
 
     public static function multipleEnums(string $filePathName): self
     {
         return new self(
-            sprintf('There are multiple enums in a file %s', $filePathName)
+            sprintf('There are multiple enums in a file %s', $filePathName),
         );
     }
 }

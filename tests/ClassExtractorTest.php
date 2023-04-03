@@ -16,8 +16,8 @@ final class ClassExtractorTest extends TestCaseBase
         self::assertSame(
             ClassFixture::class,
             ClassExtractor::get(
-                __DIR__ . '/Fixtures/SomeDirectory/ClassFixture.php'
-            )
+                __DIR__ . '/Fixtures/SomeDirectory/ClassFixture.php',
+            ),
         );
     }
 
@@ -30,7 +30,7 @@ final class ClassExtractorTest extends TestCaseBase
     {
         self::assertSame(
             $expectedClasses,
-            ClassExtractor::all(__DIR__ . $fixture)
+            ClassExtractor::all(__DIR__ . $fixture),
         );
     }
 

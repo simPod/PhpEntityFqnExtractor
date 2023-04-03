@@ -16,8 +16,8 @@ final class EnumExtractorTest extends TestCaseBase
         self::assertSame(
             EnumFixture::class,
             EnumExtractor::get(
-                __DIR__ . '/Fixtures/SomeDirectory/EnumFixture.php'
-            )
+                __DIR__ . '/Fixtures/SomeDirectory/EnumFixture.php',
+            ),
         );
     }
 
@@ -30,7 +30,7 @@ final class EnumExtractorTest extends TestCaseBase
     {
         self::assertSame(
             $expectedClasses,
-            EnumExtractor::all(__DIR__ . $fixture)
+            EnumExtractor::all(__DIR__ . $fixture),
         );
     }
 
