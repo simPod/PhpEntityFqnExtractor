@@ -25,6 +25,6 @@
 
 [Packagist Link]: https://packagist.org/packages/cdn77/entity-fqn-extractor
 
-[Infection Image]: https://badge.stryker-mutator.io/github.com/cdn77/PhpEntityFqnExtractor/master
+[Infection Image]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fcdn77%2FPhpEntityFqnExtractor%2Fmaster
 
 [Infection Link]: https://dashboard.stryker-mutator.io/reports/github.com/cdn77/PhpEntityFqnExtractor/master
