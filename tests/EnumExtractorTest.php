@@ -35,7 +35,7 @@ final class EnumExtractorTest extends TestCaseBase
     }
 
     /** @return Generator<string, array{list<string>, string}> */
-    public function dataProviderAll(): Generator
+    public static function dataProviderAll(): Generator
     {
         yield 'two enums' => [
             [
@@ -63,7 +63,7 @@ final class EnumExtractorTest extends TestCaseBase
     }
 
     /** @return Generator<string, array{string, string}> */
-    public function dataProviderGetThrows(): Generator
+    public static function dataProviderGetThrows(): Generator
     {
         yield 'class' => ['There is no enum in a file', '/Fixtures/SomeDirectory/ClassFixture.php'];
         yield 'interface' => ['There is no enum in a file', '/Fixtures/SomeDirectory/InterfaceFixture.php'];
