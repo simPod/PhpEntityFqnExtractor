@@ -68,7 +68,7 @@ final class EnumExtractor
             }
 
             $enumName = $tokens[$i][1];
-            /** @psalm-var class-string $fqn */
+            /** @phpstan-var class-string $fqn */
             $fqn = $namespace . '\\' . $enumName;
             $enums[] = $fqn;
         }
