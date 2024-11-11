@@ -23,9 +23,9 @@
         "cdn77/coding-standard": "^7.0",
         "infection/infection": "^0.29.0",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^1.1",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpstan/phpstan-strict-rules": "^1.0",
+        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
         "phpunit/phpunit": "^11.4"
     },
     "autoload": {

@@ -1,6 +1,9 @@
 parameters:
     level: max
 
+    excludePaths:
+        - %currentWorkingDirectory%/tests/Fixtures/SomeDirectory/TraitFixture.php
+
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/tests
